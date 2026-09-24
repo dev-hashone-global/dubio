@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Send, CheckCircle, AlertCircle } from "lucide-react";
-import emailjs from "@emailjs/browser";
+import apiClient from "@/lib/apiClient";
 
 interface ContactFormProps {
   defaultSubject?: string;
@@ -23,17 +23,7 @@ export default function ContactForm({ defaultSubject = "" }: ContactFormProps) {
     setStatus("sending");
 
     try {
-      await emailjs.send(
-        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || "",
-        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || "",
-        {
-          from_name: formData.name,
-          from_email: formData.email,
-          subject: formData.subject,
-          message: formData.message,
-        },
-        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || ""
-      );
+      await apiClient.post("/launch/contact", formData);
       setStatus("success");
       setFormData({ name: "", email: "", subject: "", message: "" });
     } catch {

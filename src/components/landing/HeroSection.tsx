@@ -30,7 +30,7 @@ const HeroSection = () => {
     setMessage("");
 
     try {
-      await apiClient.post('/early-access/signup', {
+      await apiClient.post("/launch/waitlist", {
         email: email
       });
       

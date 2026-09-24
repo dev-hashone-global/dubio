@@ -23,7 +23,7 @@ const MainFooter = () => {
     setIsLoading(true);
     setMessage("");
     try {
-      await apiClient.post('/early-access/signup', { email });
+      await apiClient.post("/launch/waitlist", { email });
       setMessage("Successfully signed up for early access!");
       setEmail("");
     } catch (error: unknown) {
