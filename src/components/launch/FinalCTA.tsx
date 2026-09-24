@@ -72,7 +72,7 @@ export default function FinalCTA() {
     setIsLoading(true);
     setMessage("");
     try {
-      await apiClient.post("/early-access/signup", { email });
+      await apiClient.post("/launch/waitlist", { email });
       setMessage("You're in! We'll notify you when Dubio launches.");
       setEmail("");
     } catch (error) {
