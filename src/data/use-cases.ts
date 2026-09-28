@@ -48,7 +48,7 @@ export const useCases: UseCase[] = [
     hero: {
       eyebrow: "For Creators",
       title: "Grow Your Audience 10x",
-      subtitle: "Break language barriers and reach viewers worldwide. Upload your videos and dub them into 50+ languages while keeping your authentic voice.",
+      subtitle: "Break language barriers and reach viewers worldwide. Upload your videos and dub them into 80+ languages while keeping your authentic voice.",
     },
     painPoints: [
       { title: "Limited Reach", description: "Your content only reaches audiences who speak your language, leaving billions of potential viewers untapped.", icon: "Globe" },
@@ -57,20 +57,20 @@ export const useCases: UseCase[] = [
       { title: "Time-Consuming", description: "Managing translations, voice actors, and editing across multiple languages is a full-time job.", icon: "Clock" },
     ],
     solutions: [
-      { title: "Voice-Preserved Dubbing", description: "Our AI clones your voice in 50+ languages, keeping your tone, emotion, and personality intact." },
+      { title: "Voice-Preserved Dubbing", description: "Our AI clones your voice in 80+ languages, keeping your tone, emotion, and personality intact." },
       { title: "One-Click Multi-Language", description: "Upload once, dub into multiple languages simultaneously. Your video is ready in minutes, not weeks." },
       { title: "Studio Workflow", description: "Upload videos directly to the Dubio studio and manage all your dubbed versions from one dashboard." },
       { title: "Lip Sync Technology", description: "Viewers see your lips match the dubbed audio for a natural viewing experience." },
     ],
     workflow: [
       { step: 1, title: "Upload Your Video", description: "Upload your video file directly into the Dubio studio — MP4, MOV, and more." },
-      { step: 2, title: "Choose Languages", description: "Select from 50+ target languages for your content." },
+      { step: 2, title: "Choose Languages", description: "Select from 80+ target languages for your content." },
       { step: 3, title: "AI Dubs Your Video", description: "Our AI clones your voice, translates, and syncs everything in minutes." },
       { step: 4, title: "Download & Publish", description: "Download your dubbed videos and publish to reach new audiences worldwide." },
     ],
     stats: [
       { value: "10x", label: "Average audience growth" },
-      { value: "50+", label: "Languages available" },
+      { value: "80+", label: "Languages available" },
       { value: "< 5 min", label: "Average processing time" },
       { value: "95%", label: "Voice similarity score" },
     ],
@@ -85,13 +85,13 @@ export const useCases: UseCase[] = [
     title: "Subtitled Content",
     shortTitle: "Subtitles",
     icon: "Subtitles",
-    stat: "50+",
+    stat: "80+",
     statLabel: "Languages",
-    description: "Generate accurate, synchronized subtitles in 50+ languages automatically. Switch languages on the fly for any video.",
+    description: "Generate accurate, synchronized subtitles in 80+ languages automatically. Switch languages on the fly for any video.",
     hero: {
       eyebrow: "Subtitled Content",
       title: "Every Word, Perfectly Timed",
-      subtitle: "Generate professional subtitles in 50+ languages automatically. Accurate, synchronized, and ready to embed in your videos.",
+      subtitle: "Generate professional subtitles in 80+ languages automatically. Accurate, synchronized, and ready to embed in your videos.",
     },
     painPoints: [
       { title: "Manual Subtitling", description: "Creating subtitles by hand takes hours per video and is error-prone.", icon: "Clock" },
@@ -101,7 +101,7 @@ export const useCases: UseCase[] = [
     ],
     solutions: [
       { title: "AI-Powered Accuracy", description: "State-of-the-art speech recognition ensures subtitles match what's actually spoken." },
-      { title: "50+ Language Support", description: "Generate subtitles in any language instantly. Switch between languages with one click." },
+      { title: "80+ Language Support", description: "Generate subtitles in any language instantly. Switch between languages with one click." },
       { title: "Perfect Sync", description: "Subtitles are automatically timed to match audio, word by word." },
       { title: "Export Flexibility", description: "Download in SRT, VTT, or embed directly. Compatible with every platform." },
     ],
@@ -112,7 +112,7 @@ export const useCases: UseCase[] = [
       { step: 4, title: "Export & Embed", description: "Download subtitle files or get a video with burned-in subtitles." },
     ],
     stats: [
-      { value: "50+", label: "Languages supported" },
+      { value: "80+", label: "Languages supported" },
       { value: "98%", label: "Transcription accuracy" },
       { value: "< 2 min", label: "Processing per video" },
       { value: "SRT/VTT", label: "Export formats" },
@@ -134,7 +134,7 @@ export const useCases: UseCase[] = [
     hero: {
       eyebrow: "Distribution",
       title: "Publish Everywhere, In Every Language",
-      subtitle: "Dub once, publish everywhere. Download dubbed versions optimized for YouTube, TikTok, Instagram, and more — in 50+ languages.",
+      subtitle: "Dub once, publish everywhere. Download dubbed versions optimized for YouTube, TikTok, Instagram, and more — in 80+ languages.",
     },
     painPoints: [
       { title: "Platform Fragmentation", description: "Each platform has different requirements. Managing multi-language content across all of them is overwhelming.", icon: "Layers" },
@@ -156,7 +156,7 @@ export const useCases: UseCase[] = [
     ],
     stats: [
       { value: "3x", label: "Average platform reach" },
-      { value: "50+", label: "Languages for dubbing" },
+      { value: "80+", label: "Languages for dubbing" },
       { value: "Same day", label: "Global launch capability" },
       { value: "1", label: "Dashboard for everything" },
     ],
@@ -188,7 +188,7 @@ export const useCases: UseCase[] = [
     solutions: [
       { title: "Consistent Brand Voice", description: "Maintain a unified brand voice across all languages with AI voice cloning." },
       { title: "90% Cost Reduction", description: "Enterprise-grade dubbing at a fraction of traditional studio costs." },
-      { title: "Rapid Localization", description: "Go from one language to 50+ in hours, not months. Meet compliance deadlines easily." },
+      { title: "Rapid Localization", description: "Go from one language to 80+ in hours, not months. Meet compliance deadlines easily." },
       { title: "Progress Tracking", description: "Monitor rollout progress by region, language, and team from one dashboard." },
     ],
     workflow: [
@@ -199,7 +199,7 @@ export const useCases: UseCase[] = [
     ],
     stats: [
       { value: "90%", label: "Cost savings vs agencies" },
-      { value: "50+", label: "Languages for localization" },
+      { value: "80+", label: "Languages for localization" },
       { value: "24hr", label: "Average turnaround time" },
       { value: "99.9%", label: "Platform uptime SLA" },
     ],

@@ -12,7 +12,7 @@ const FinalCTA = dynamic(() => import("@/components/launch/FinalCTA"));
 export const metadata = {
   title: "Dubio — AI Video Dubbing Platform",
   description:
-    "Clone your voice and dub your videos into 50+ languages in seconds. Powered by AI that preserves your tone, emotion, and identity.",
+    "Clone your voice and dub your videos into 80+ languages in seconds. Powered by AI that preserves your tone, emotion, and identity.",
 };
 
 export default function LaunchPage() {

@@ -1,6 +1,6 @@
 # Dubio
 
-Marketing website for [Dubio](https://www.dubio.ai) — an AI video dubbing platform that clones your voice and dubs content into 50+ languages while preserving tone, emotion, and identity.
+Marketing website for [Dubio](https://www.dubio.ai) — an AI video dubbing platform that clones your voice and dubs content into 80+ languages while preserving tone, emotion, and identity.
 
 Built with Next.js 15 (App Router), React 19, TypeScript, Tailwind CSS v4, and shadcn/ui.
 

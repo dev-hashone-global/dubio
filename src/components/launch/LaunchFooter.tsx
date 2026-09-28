@@ -52,7 +52,7 @@ export default function LaunchFooter() {
               unoptimized
             />
             <p className="text-white/40 text-sm max-w-xs">
-              AI-powered video dubbing that preserves your voice, tone, and emotion across 50+ languages.
+              AI-powered video dubbing that preserves your voice, tone, and emotion across 80+ languages.
             </p>
           </div>
 

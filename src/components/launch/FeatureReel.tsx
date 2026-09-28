@@ -38,9 +38,9 @@ const features = [
   },
   {
     icon: Globe,
-    title: "50+ Languages",
+    title: "80+ Languages",
     description:
-      "Dub your content into Spanish, Japanese, Hindi, Arabic, and 50+ more with native-quality  results. Reach every audience on the planet — no limits.",
+      "Dub your content into Spanish, Japanese, Hindi, Arabic, and 80+ more with native-quality  results. Reach every audience on the planet — no limits.",
     accent: "#10B981",
     accentRgb: "16, 185, 129",
     tag: "SCALE",

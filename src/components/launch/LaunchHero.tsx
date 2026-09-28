@@ -30,7 +30,7 @@ export default function LaunchHero() {
         <ScrambleHeadline />
 
         <p className="text-white/45 text-lg sm:text-xl max-w-2xl mx-auto mb-12 leading-relaxed">
-          Dub your video into 50+ languages in seconds - with perfect lip-sync
+          Dub your video into 80+ languages in seconds - with perfect lip-sync
           and exact voice, tone & emotion fully preserved.
         </p>
 
@@ -79,7 +79,7 @@ export default function LaunchHero() {
             <div className="w-px h-8 bg-white/10" />
             <div className="flex flex-col items-center">
               <span className="text-lg sm:text-xl font-bold text-white font-[family-name:var(--font-syne)]">
-                50+
+                80+
               </span>
               <span className="text-[10px] sm:text-xs text-white/50 uppercase tracking-wider">
                 Languages

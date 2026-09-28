@@ -22,7 +22,7 @@ const steps: {
     {
       icon: Languages,
       title: "Pick Language & Voice",
-      description: "Choose from 50+ languages with perfect lip-sync.",
+      description: "Choose from 80+ languages with perfect lip-sync.",
       detail: "Clone your own voice or pick a new one - your unique tone and emotion fully preserved.",
       mockup: <LanguageMockup />,
     },

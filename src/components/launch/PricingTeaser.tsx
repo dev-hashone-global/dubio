@@ -6,9 +6,9 @@ import { services, freeCredit } from "@/data/pricing";
 
 const freeFeatures = [
   "1 free minute",
-  "Full access to all features",
+  "Dubbing + Subtitles",
   "No credit card required",
-  "50+ languages",
+  "80+ languages",
   "Voice cloning",
 ];
 
@@ -120,7 +120,7 @@ export default function PricingTeaser() {
             </div>
             <div className="flex items-baseline gap-1 mb-8">
               <span className="font-[family-name:var(--font-syne)] text-white text-4xl font-bold">
-                From $1.20
+                From $0.99
               </span>
               <span className="text-white/30 text-sm">/min</span>
             </div>
