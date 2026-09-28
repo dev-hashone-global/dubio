@@ -21,8 +21,8 @@ const useCases = [
   {
     icon: Subtitles,
     title: "Subtitled Content",
-    description: "Generate accurate, perfectly synced subtitles in 50+ languages automatically. Switch languages instantly and boost watch time worldwide.",
-    stat: "50+",
+    description: "Generate accurate, perfectly synced subtitles in 80+ languages automatically. Switch languages instantly and boost watch time worldwide.",
+    stat: "80+",
     statLabel: "languages",
     scenario: "Every word, perfectly timed, in any language.",
     image: "/images/creator3.png",

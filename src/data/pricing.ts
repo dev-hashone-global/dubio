@@ -20,11 +20,12 @@ export const freeCredit: FreeCredit = {
   minutes: 1,
   description: "Try Dubio with 1 free minute. No credit card required.",
   features: [
-    "Available on Subtitle Only, Dubbing Only & Dubbing + Subtitles",
-    "50+ languages available",
-    "HD quality output",
+    "Available on Dubbing + Subtitles",
+    "80+ languages available",
     "Voice cloning included",
-    "No watermark",
+    "HD quality output",
+    "Watermarked output",
+    "No credit card required",
   ],
 };
 
@@ -32,39 +33,39 @@ export const services: PaygService[] = [
   {
     name: "Subtitle Only",
     description: "Accurate transcription with translated subtitles for any video or audio.",
-    pricePerMinute: "$1.20",
+    pricePerMinute: "$0.99",
     icon: FileText,
     includes: [
       "Accurate transcription",
       "Translated subtitles",
       "SRT/VTT export",
-      "50+ languages",
+      "80+ languages",
       "Timestamps",
     ],
   },
   {
     name: "Dubbing Only",
     description: "Translate and dub your video into any language with AI voice cloning.",
-    pricePerMinute: "$2.90",
+    pricePerMinute: "$1.99",
     icon: Mic,
     includes: [
       "AI voice-cloned dubbing",
       "Speech recognition",
       "AI translation",
-      "50+ languages",
+      "80+ languages",
       "HD output",
     ],
   },
   {
     name: "Dubbing + Subtitles",
     description: "Everything in Dubbing plus synced subtitle files in one step.",
-    pricePerMinute: "$3.50",
+    pricePerMinute: "$2.50",
     icon: Layers,
     includes: [
       "Everything in Dubbing Only",
       "Synced subtitle files",
       "SRT/VTT export",
-      "50+ languages",
+      "80+ languages",
       "Best value",
     ],
     popular: true,
@@ -73,12 +74,12 @@ export const services: PaygService[] = [
     name: "Dubbing + Lip Sync",
     description:
       "Dubbing with realistic lip synchronization. Premium tier — requires Dubio Balance (not free-trial eligible).",
-    pricePerMinute: "$7.50",
+    pricePerMinute: "$5.99",
     icon: ScanFace,
     includes: [
       "Everything in Dubbing Only",
       "Realistic lip synchronization",
-      "50+ languages",
+      "80+ languages",
       "HD output",
       "Requires Dubio Balance",
     ],
@@ -88,7 +89,7 @@ export const services: PaygService[] = [
     name: "Full Studio",
     description:
       "Dubbing + lip sync + subtitles — the complete package. Premium tier — requires Dubio Balance (not free-trial eligible).",
-    pricePerMinute: "$8.00",
+    pricePerMinute: "$6.50",
     icon: Clapperboard,
     includes: [
       "Everything in Dubbing + Lip Sync",
@@ -114,21 +115,21 @@ export const serviceComparisonFeatures: ServiceComparisonFeature[] = [
   { name: "Subtitle generation", values: [true, false, true, false, true] },
   { name: "SRT/VTT export", values: [true, false, true, false, true] },
   { name: "Timestamps", values: [true, false, true, false, true] },
-  { name: "50+ languages", values: [true, true, true, true, true] },
+  { name: "80+ languages", values: [true, true, true, true, true] },
   { name: "HD output", values: [false, true, true, true, true] },
-  { name: "Free trial eligible", values: [true, true, true, false, false] },
+  { name: "Free trial eligible", values: [false, false, true, false, false] },
 ];
 
 export const pricingFAQs = [
   {
     question: "How does pay-as-you-go pricing work?",
     answer:
-      "You only pay for what you use. Each service is billed per minute of video processed. There are no monthly fees, no commitments, and no minimum usage requirements.",
+      "You only pay for what you use. Each service is billed per minute of video processed, starting at $0.99/min. There are no monthly fees, no commitments, and no minimum usage requirements — affordable for individual creators and scalable for high-volume teams.",
   },
   {
     question: "Do I get a free minute to start?",
     answer:
-      "Yes! Every new account gets 1 free minute to try Subtitle Only, Dubbing Only, or Dubbing + Subtitles. No credit card required.",
+      "Yes! Every new account gets 1 free minute to try Dubbing + Subtitles. Trial output includes a Dubio watermark, which is removed on all paid processing once you top up your Dubio Balance. No credit card required.",
   },
   {
     question: "What counts as a minute?",

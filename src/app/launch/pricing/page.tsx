@@ -16,7 +16,7 @@ export default function PricingPage() {
       <PageHero
         eyebrow="Pricing"
         title="Pay Only for What You Use"
-        subtitle="Simple per-minute pricing. Start with 1 free minute. No credit card required."
+        subtitle="Affordable for individual creators, scalable for high-volume teams. Pricing starts at $0.99/min, and you can start with 1 free minute. No credit card required."
       />
       
 

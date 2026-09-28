@@ -64,8 +64,8 @@ export const blogPosts: BlogPost[] = [
       <h3>Improved Voice Cloning</h3>
       <p>We've upgraded our voice cloning model to achieve 95%+ similarity scores. The new model better preserves emotional nuance, breathing patterns, and natural speech rhythms.</p>
 
-      <h3>50+ Languages</h3>
-      <p>We've expanded from 20 to 50+ supported languages, covering over 95% of the world's internet users. New additions include Hindi, Thai, Vietnamese, Indonesian, and several African languages.</p>
+      <h3>80+ Languages</h3>
+      <p>We've expanded from 20 to 80+ supported languages, covering over 95% of the world's internet users. New additions include Hindi, Thai, Vietnamese, Indonesian, and several African languages.</p>
 
       <h2>What's Coming Next</h2>
       <p>We're already working on the next wave of features:</p>
@@ -75,7 +75,7 @@ export const blogPosts: BlogPost[] = [
       <p><strong>Custom Voice Models:</strong> Train custom voice models for consistent brand voices across all your content.</p>
 
       <h2>Getting Started</h2>
-      <p>You can start using Dubio for free today. Every new account gets 1 free minute to try our core services — subtitles, dubbing, or both together. After that, pay only for what you use, starting at $1.20/min.</p>
+      <p>You can start using Dubio for free today. Every new account gets 1 free minute to try Dubbing + Subtitles. After that, pay only for what you use, starting at $0.99/min.</p>
       <p>We'd love to hear your feedback. Reach out through our contact page or join our community on social media.</p>
     `,
   },
@@ -101,7 +101,7 @@ export const blogPosts: BlogPost[] = [
       <h2>The Rise of the Global Creator</h2>
       <p>We're entering an era where a creator in São Paulo can reach audiences in Tokyo, Berlin, and Mumbai simultaneously, all with their own voice. This fundamentally changes the creator economy:</p>
       <p><strong>Audience size is no longer bound by language.</strong> A channel with 100K English-speaking subscribers could reach millions in new markets.</p>
-      <p><strong>Content value multiplies.</strong> Every piece of content you create can generate returns in 50+ markets instead of one.</p>
+      <p><strong>Content value multiplies.</strong> Every piece of content you create can generate returns in 80+ markets instead of one.</p>
       <p><strong>Competition becomes global.</strong> The best content in any language now competes worldwide, raising quality across the board.</p>
 
       <h2>Beyond Entertainment</h2>
