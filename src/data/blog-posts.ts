@@ -44,7 +44,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "dubio-launch-whats-new",
     title: "Dubio Launch: What's New and What's Coming",
-    excerpt: "We're officially launching Dubio with improved voice cloning, subtitles, and multi-speaker dubbing in early access.",
+    excerpt: "We're officially launching Dubio with improved voice cloning, subtitles, and multi-speaker dubbing.",
     category: "Product Updates",
     date: "2026-03-18",
     readTime: "5 min read",
@@ -59,7 +59,7 @@ export const blogPosts: BlogPost[] = [
       <p>Upload your video file and Dubio handles the rest. All major video formats are supported — just upload and dub.</p>
 
       <h3>Multi-Speaker Detection</h3>
-      <p>Our new diarization pipeline detects multiple speakers in your video and applies unique voice cloning to each one. Multi-speaker dubbing is rolling out as an early-access feature — join the waitlist from the Studio to try it with your interviews, podcasts, and panel discussions.</p>
+      <p>Our new diarization pipeline detects multiple speakers in your video and applies unique voice cloning to each one. Multi-speaker videos such as interviews, podcasts, and panel discussions are delivered as dubbing plus subtitles; lip sync currently supports single-speaker videos.</p>
 
       <h3>Improved Voice Cloning</h3>
       <p>We've upgraded our voice cloning model to achieve 95%+ similarity scores. The new model better preserves emotional nuance, breathing patterns, and natural speech rhythms.</p>
