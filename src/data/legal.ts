@@ -140,3 +140,34 @@ export const termsOfService: { lastUpdated: string; sections: LegalSection[] } =
     },
   ],
 };
+
+export const accountDeletion: { lastUpdated: string; sections: LegalSection[] } = {
+  lastUpdated: "2026-10-23",
+  sections: [
+    {
+      id: "how-to-delete",
+      title: "How to Delete Your Account",
+      content: "You can delete your Dubio account in any of these ways:\n\n• In the Dubio app: go to Settings → Delete account.\n• On the web: sign in at https://app.dubio.ai and go to Settings → Delete account.\n• If you can't sign in: email support@dubio.ai from the email address on your account and ask us to delete it.",
+    },
+    {
+      id: "what-is-deleted",
+      title: "What Is Deleted",
+      content: "When your account is deleted, we delete your account profile, uploaded videos, dubbed outputs, subtitles, voice data and connected accounts.",
+    },
+    {
+      id: "what-is-kept",
+      title: "What Is Kept",
+      content: "Payment and top-up records are kept, as required by tax and accounting law. They are no longer linked to your name or email.",
+    },
+    {
+      id: "dubio-balance",
+      title: "Dubio Balance",
+      content: "Any remaining Dubio Balance is forfeited when your account is deleted and can't be refunded after deletion.",
+    },
+    {
+      id: "timing",
+      title: "When Deletion Happens",
+      content: "Deletion is immediate and can't be undone.",
+    },
+  ],
+};

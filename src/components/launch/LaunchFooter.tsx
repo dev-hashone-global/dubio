@@ -25,6 +25,7 @@ const footerColumns = [
     links: [
       { label: "Privacy Policy", href: "/launch/legal/privacy" },
       { label: "Terms of Service", href: "/launch/legal/terms" },
+      { label: "Delete Account", href: "/launch/legal/delete-account" },
     ],
   },
 ];
