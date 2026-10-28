@@ -1,5 +1,6 @@
 import dynamic from "next/dynamic";
 import LaunchHero from "@/components/launch/LaunchHero";
+import { SHOW_DEMO_VIDEOS } from "@/lib/launch-flags";
 
 const HowItWorks = dynamic(() => import("@/components/launch/HowItWorks"));
 const FeatureReel = dynamic(() => import("@/components/launch/FeatureReel"));
@@ -22,7 +23,7 @@ export default function LaunchPage() {
       <HowItWorks />
       <FeatureReel />
       <LiveTranslation />
-      <DemoSection />
+      {SHOW_DEMO_VIDEOS && <DemoSection />}
       <UseCases />
       <PricingTeaser />
       <FinalCTA />
