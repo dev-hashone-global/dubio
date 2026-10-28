@@ -1,5 +1,6 @@
 import dynamic from "next/dynamic";
 import ScrambleHeadline from "./ScrambleHeadline";
+import { SHOW_DEMO_VIDEOS } from "@/lib/launch-flags";
 
 const ProductDemoPreview = dynamic(() => import("./ProductDemoPreview"), {
   loading: () => (
@@ -88,7 +89,7 @@ export default function LaunchHero() {
           </div>
         </div>
 
-        <ProductDemoPreview />
+        {SHOW_DEMO_VIDEOS && <ProductDemoPreview />}
       </div>
     </section>
   );
