@@ -9,18 +9,22 @@ import {
   ORIGINAL_POSTER,
   ORIGINAL_SPEECH,
   ORIGINAL_VIDEO_SRC,
-  prefetchVideo,
   registerExclusiveVideo,
   type DemoLanguage,
 } from "@/lib/demo-media";
 
 /** Tracks paused/muted state of a <video> element via its media events. */
 function useMediaState(ref: React.RefObject<HTMLVideoElement | null>) {
+  const [video, setVideo] = useState<HTMLVideoElement | null>(null);
+  useEffect(() => setVideo(ref.current), [ref]);
+  return useMediaElementState(video);
+}
+
+function useMediaElementState(video: HTMLVideoElement | null) {
   const [paused, setPaused] = useState(true);
   const [muted, setMuted] = useState(true);
 
   useEffect(() => {
-    const video = ref.current;
     if (!video) return;
     const sync = () => {
       setPaused(video.paused);
@@ -30,7 +34,7 @@ function useMediaState(ref: React.RefObject<HTMLVideoElement | null>) {
     events.forEach((e) => video.addEventListener(e, sync));
     sync();
     return () => events.forEach((e) => video.removeEventListener(e, sync));
-  }, [ref]);
+  }, [video]);
 
   return { paused, muted };
 }
@@ -54,17 +58,20 @@ const overlayButtonClass =
   "absolute top-2 z-20 inline-flex items-center gap-1.5 rounded-full bg-black/60 px-2.5 py-1 text-[10px] sm:text-xs font-[family-name:var(--font-syne)] text-white backdrop-blur transition hover:bg-black/80";
 
 function OriginalVideo({
-  autoplay,
   onReady,
   className,
 }: {
-  autoplay: boolean;
   onReady: () => void;
   className: string;
 }) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const { paused, muted } = useMediaState(videoRef);
   const autoplayed = useRef(false);
+  // Autoplay once half of the player itself is on screen. (Observing the
+  // whole demo block fails on phones: it is wider than the viewport, so it can
+  // never be 50% visible.)
+  const frameRef = useRef<HTMLDivElement>(null);
+  const autoplay = useInView(frameRef, { once: true, amount: 0.5 });
 
   useEffect(() => {
     const video = videoRef.current;
@@ -105,7 +112,7 @@ function OriginalVideo({
   };
 
   return (
-    <div className={className}>
+    <div ref={frameRef} className={className}>
       <video
         ref={videoRef}
         src={ORIGINAL_VIDEO_SRC}
@@ -132,90 +139,133 @@ function OriginalVideo({
   );
 }
 
+/**
+ * The dubbed side keeps one <video> per language the visitor has selected or
+ * hovered, stacked in the same frame. Switching shows an element that has
+ * already buffered, so playback starts instantly instead of re-fetching.
+ */
 function DubbedVideo({
   language,
+  warmCodes,
   bufferFully,
   className,
 }: {
   language: DemoLanguage;
+  warmCodes: ReadonlySet<string>;
   bufferFully: boolean;
   className: string;
 }) {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const { paused } = useMediaState(videoRef);
+  const videos = useRef(new Map<string, HTMLVideoElement>());
+  const cleanups = useRef(new Map<string, () => void>());
+  const [active, setActive] = useState<HTMLVideoElement | null>(null);
+  const { paused } = useMediaElementState(active);
   const [subtitlesOn, setSubtitlesOn] = useState(true);
-  // Paused state as of the render that switched language (state updates from
-  // the new source's media events arrive afterwards).
   const pausedRef = useRef(paused);
   pausedRef.current = paused;
-  const previousSrc = useRef(language.videoSrc);
+  const activeCode = useRef(language.code);
 
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-    return registerExclusiveVideo(video);
-  }, []);
+  const pooled = DEMO_LANGUAGES.filter(
+    (l) => l.code === language.code || warmCodes.has(l.code),
+  );
 
-  // Keep the element mounted; swapping src restarts at 0. If the visitor was
-  // watching a dub when they switched, continue playing the new one.
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video || previousSrc.current === language.videoSrc) return;
-    previousSrc.current = language.videoSrc;
-    if (!pausedRef.current) {
-      video.addEventListener("canplay", () => void video.play(), {
-        once: true,
-      });
+  // Stable ref callback per language, so React doesn't detach/re-attach
+  // (and re-register) every element on each render.
+  const refCallbacks = useRef(
+    new Map<string, (video: HTMLVideoElement | null) => void>(),
+  );
+  const attach = (code: string) => {
+    let callback = refCallbacks.current.get(code);
+    if (!callback) {
+      callback = (video) => onElement(code, video);
+      refCallbacks.current.set(code, callback);
     }
-  }, [language.videoSrc]);
+    return callback;
+  };
+  const onElement = (code: string, video: HTMLVideoElement | null) => {
+    if (video) {
+      if (videos.current.get(code) === video) return;
+      videos.current.set(code, video);
+      cleanups.current.set(code, registerExclusiveVideo(video));
+      if (code === activeCode.current) setActive(video);
+    } else {
+      cleanups.current.get(code)?.();
+      cleanups.current.delete(code);
+      videos.current.delete(code);
+    }
+  };
 
-  // Apply the CC toggle to the current language's track (it is replaced on
-  // every language switch, so re-apply once it loads).
+  // Swap the visible element; carry "playing" over to the new language.
   useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-    const apply = () => {
-      Array.from(video.textTracks).forEach((track) => {
-        track.mode = subtitlesOn ? "showing" : "hidden";
-      });
-    };
+    if (activeCode.current === language.code) return;
+    const previous = videos.current.get(activeCode.current);
+    const next = videos.current.get(language.code);
+    const wasPlaying = !pausedRef.current;
+    activeCode.current = language.code;
+    if (previous) {
+      previous.pause();
+      previous.currentTime = 0;
+    }
+    if (next) {
+      next.currentTime = 0;
+      setActive(next);
+      if (wasPlaying) {
+        next.muted = false;
+        void next.play();
+      }
+    }
+  }, [language.code]);
+
+  // CC toggle applies to every pooled language.
+  useEffect(() => {
+    const apply = () =>
+      videos.current.forEach((video) =>
+        Array.from(video.textTracks).forEach((track) => {
+          track.mode = subtitlesOn ? "showing" : "hidden";
+        }),
+      );
     apply();
-    video.textTracks.addEventListener("addtrack", apply);
-    video.addEventListener("loadedmetadata", apply);
-    return () => {
-      video.textTracks.removeEventListener("addtrack", apply);
-      video.removeEventListener("loadedmetadata", apply);
-    };
-  }, [subtitlesOn, language.code]);
+    const list = Array.from(videos.current.values());
+    list.forEach((v) => v.textTracks.addEventListener("addtrack", apply));
+    return () =>
+      list.forEach((v) => v.textTracks.removeEventListener("addtrack", apply));
+  }, [subtitlesOn, pooled.length]);
 
   const play = () => {
-    const video = videoRef.current;
-    if (!video) return;
-    video.muted = false;
-    void video.play();
+    if (!active) return;
+    active.muted = false;
+    void active.play();
   };
 
   return (
     <div className={className}>
-      <video
-        ref={videoRef}
-        src={language.videoSrc}
-        poster={language.poster}
-        preload={bufferFully ? "auto" : "metadata"}
-        playsInline
-        controls={!paused}
-        className="absolute inset-0 w-full h-full object-cover bg-black"
-        aria-label={`Demo video dubbed in ${language.name}`}
-      >
-        <track
-          key={language.code}
-          kind="subtitles"
-          src={language.captionsSrc}
-          srcLang={language.code}
-          label={language.name}
-          default
-        />
-      </video>
+      {pooled.map((l) => {
+        const isActive = l.code === language.code;
+        return (
+          <video
+            key={l.code}
+            ref={attach(l.code)}
+            src={l.videoSrc}
+            poster={l.poster}
+            preload={bufferFully ? "auto" : "metadata"}
+            playsInline
+            controls={isActive && !paused}
+            aria-hidden={!isActive}
+            tabIndex={isActive ? undefined : -1}
+            className={`absolute inset-0 w-full h-full object-cover bg-black ${
+              isActive ? "" : "invisible"
+            }`}
+            aria-label={`Demo video dubbed in ${l.name}`}
+          >
+            <track
+              kind="subtitles"
+              src={l.captionsSrc}
+              srcLang={l.code}
+              label={l.name}
+              default
+            />
+          </video>
+        );
+      })}
       {paused && <PlayOverlay onClick={play} />}
       <button
         type="button"
@@ -276,15 +326,22 @@ export default function ProductDemoPreview() {
 
   const containerRef = useRef<HTMLDivElement>(null);
   const inView = useInView(containerRef, { once: true, margin: "100px" });
-  const playerInView = useInView(containerRef, { once: true, amount: 0.5 });
   const [selectedLanguage, setSelectedLanguage] = useState<DemoLanguage>(
     DEMO_LANGUAGES[0],
   );
   const [originalReady, setOriginalReady] = useState(false);
   const handleOriginalReady = useCallback(() => setOriginalReady(true), []);
 
+  // Languages the visitor has hovered/touched/focused: their <video> is
+  // mounted (hidden) so it buffers before being picked.
+  const [warmCodes, setWarmCodes] = useState<ReadonlySet<string>>(new Set());
+  const warmLanguage = (code: string) =>
+    setWarmCodes((prev) => (prev.has(code) ? prev : new Set(prev).add(code)));
+
   const handleLanguageSelect = (language: DemoLanguage) => {
     if (language.code === selectedLanguage.code) return;
+    // Keep the outgoing language buffered so switching back is instant too.
+    warmLanguage(selectedLanguage.code);
     setSelectedLanguage(language);
   };
 
@@ -311,7 +368,7 @@ export default function ProductDemoPreview() {
             <div className="mt-3 flex gap-2 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
               {DEMO_LANGUAGES.map((language) => {
                 const isActive = language.code === selectedLanguage.code;
-                const warm = () => prefetchVideo(language.videoSrc);
+                const warm = () => warmLanguage(language.code);
                 return (
                   <button
                     key={language.code}
@@ -379,7 +436,6 @@ export default function ProductDemoPreview() {
 
             <div className="relative z-[1] order-2 md:order-none md:row-start-2 md:col-start-1">
               <OriginalVideo
-                autoplay={playerInView}
                 onReady={handleOriginalReady}
                 className={frameClass}
               />
@@ -387,6 +443,7 @@ export default function ProductDemoPreview() {
             <div className="relative z-[1] order-6 md:order-none md:row-start-2 md:col-start-2">
               <DubbedVideo
                 language={selectedLanguage}
+                warmCodes={warmCodes}
                 bufferFully={originalReady}
                 className={afterFrameClass}
               />

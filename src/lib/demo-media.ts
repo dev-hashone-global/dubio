@@ -16,7 +16,8 @@ export const DEMO_ASSET_BASE = (
 
 export const ORIGINAL_VIDEO_SRC = `${DEMO_ASSET_BASE}/original-en.mp4`;
 export const ORIGINAL_POSTER = "/images/demo-poster-en.webp";
-export const ORIGINAL_SPEECH = "TODO: first line of the English demo";
+export const ORIGINAL_SPEECH =
+  "You're watching two versions of the same video but I only recorded one.";
 
 export type DemoLanguage = {
   code: string;
@@ -47,13 +48,24 @@ const LANGUAGE_META: Array<
   { code: "hi", name: "Hindi", flag: "🇮🇳", shortCode: "HI" },
 ];
 
-// TODO: replace with the first subtitle line of each real dub.
-const SPEECH: Record<string, string> = {};
+// First subtitle line of each Full Studio dub (from its subtitles.json).
+const SPEECH: Record<string, string> = {
+  fr: "Vous voyez deux versions de la même vidéo, mais je n'en ai enregistré qu'une.",
+  es: "Estás viendo dos versiones del mismo video, pero solo grabé una.",
+  de: "Du siehst zwei Versionen vom gleichen Video, aber ich habe nur eine aufgenommen.",
+  pt: "Você está vendo duas versões do mesmo vídeo, mas eu gravei só uma.",
+  ja: "同じ動画の2つのバージョンを見てますが、実は1本しか録画してません。",
+  zh: "你看到的是同一个视频的两个版本，但我只录了一个。",
+  id: "Kamu melihat dua versi video yang sama, tapi saya hanya merekam satu.",
+  ar: "أنت تشاهد نسختين من نفس الفيديو، لكنني سجلت نسخة واحدة فقط.",
+  ko: "같은 영상을 두 버전으로 보시는데, 저는 하나만 녹음했어요.",
+  hi: "आप एक ही वीडियो के दो वर्ज़न देख रहे हैं, पर मैंने सिर्फ एक रिकॉर्ड किया।",
+};
 
 export const DEMO_LANGUAGES: DemoLanguage[] = LANGUAGE_META.map((meta) => ({
   ...meta,
   dir: meta.dir ?? "ltr",
-  speech: SPEECH[meta.code] ?? `TODO: ${meta.name} subtitle line`,
+  speech: SPEECH[meta.code],
   poster: ORIGINAL_POSTER,
   videoSrc: `${DEMO_ASSET_BASE}/dubbed-${meta.code}.mp4`,
   captionsSrc: `/demo/subs-${meta.code}.vtt`,
@@ -80,22 +92,4 @@ export function registerExclusiveVideo(video: HTMLVideoElement) {
     registered.delete(video);
     video.removeEventListener("play", handlePlay);
   };
-}
-
-/* ------------------------------------------------------------------ */
-/* Prefetch: warm the HTTP cache for a dub before the visitor picks it. */
-/* ------------------------------------------------------------------ */
-
-const prefetched = new Set<string>();
-
-export function prefetchVideo(src: string) {
-  if (typeof document === "undefined" || prefetched.has(src)) return;
-  prefetched.add(src);
-  // A detached <video preload="auto"> is honoured by Chrome, Firefox and
-  // Safari alike (unlike <link rel="preload" as="video">).
-  const video = document.createElement("video");
-  video.muted = true;
-  video.preload = "auto";
-  video.src = src;
-  video.load();
 }
