@@ -51,3 +51,4 @@ next-env.d.ts
 # public/images/*.mp4
 # public/videos/*.mp4
 config.bat
+.env*

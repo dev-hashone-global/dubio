@@ -1,7 +1,8 @@
 /**
  * Licensed homepage demo media (original English + Full Studio dubs).
  *
- * Videos live on a CDN under DEMO_ASSET_BASE:
+ * Videos are served by CloudFront (distribution E1G92NENUM67GT, origin
+ * s3://dubio-general/public/homepage-demo) under DEMO_ASSET_BASE:
  *   original-en.mp4, dubbed-<code>.mp4
  * Subtitles are tiny and served same-origin from /public/demo/subs-<code>.vtt
  * so the <video> needs no crossOrigin/CORS setup.
@@ -10,7 +11,7 @@
  */
 export const DEMO_ASSET_BASE = (
   process.env.NEXT_PUBLIC_DEMO_ASSET_BASE ||
-  "https://dubio-general.s3.us-east-1.amazonaws.com/public/homepage-demo"
+  "https://d27rupz24pd839.cloudfront.net"
 ).replace(/\/+$/, "");
 
 export const ORIGINAL_VIDEO_SRC = `${DEMO_ASSET_BASE}/original-en.mp4`;
