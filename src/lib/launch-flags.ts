@@ -1,5 +1,5 @@
 /**
- * Demo videos on /launch are hidden until licensed footage replaces the
- * current clips. Flip to true to restore the hero preview and DemoSection.
+ * Demo videos on /launch (hero ProductDemoPreview + DemoSection). They now
+ * use the licensed demo footage; set to false to hide both.
  */
-export const SHOW_DEMO_VIDEOS = false;
+export const SHOW_DEMO_VIDEOS = true;

@@ -4,15 +4,21 @@ import { motion } from "framer-motion";
 import { useRef, useState, useEffect, useCallback } from "react";
 import { Play, Pause, RefreshCcw } from "lucide-react";
 import Image from "next/image";
+import {
+  ORIGINAL_POSTER,
+  ORIGINAL_VIDEO_SRC,
+  registerExclusiveVideo,
+} from "@/lib/demo-media";
+
 export default function DemoSection() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const progressRef = useRef<HTMLDivElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   // const [isMuted, setIsMuted] = useState(false);
-  const [progress, setProgress] = useState(25);
+  const [progress, setProgress] = useState(0);
   // const [volume, setVolume] = useState(60);
-  const [currentTime, setCurrentTime] = useState("00:20");
-  const [duration, setDuration] = useState("01:35");
+  const [currentTime, setCurrentTime] = useState("00:00");
+  const [duration, setDuration] = useState("00:49");
 
   // console.log(isMuted,volume)
 
@@ -67,6 +73,12 @@ export default function DemoSection() {
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
+    return registerExclusiveVideo(video);
+  }, []);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
     const onTimeUpdate = () => {
       setProgress((video.currentTime / video.duration) * 100 || 0);
       setCurrentTime(formatTime(video.currentTime));
@@ -75,6 +87,12 @@ export default function DemoSection() {
       setDuration(formatTime(video.duration));
     };
     const onEnded = () => setIsPlaying(false);
+    // Keep the custom play/pause icon in sync when another demo video pauses
+    // this one (exclusive playback).
+    const onPlay = () => setIsPlaying(true);
+    const onPause = () => setIsPlaying(false);
+    video.addEventListener("play", onPlay);
+    video.addEventListener("pause", onPause);
     video.addEventListener("timeupdate", onTimeUpdate);
     video.addEventListener("loadedmetadata", onLoaded);
     video.addEventListener("ended", onEnded);
@@ -82,6 +100,8 @@ export default function DemoSection() {
       video.removeEventListener("timeupdate", onTimeUpdate);
       video.removeEventListener("loadedmetadata", onLoaded);
       video.removeEventListener("ended", onEnded);
+      video.removeEventListener("play", onPlay);
+      video.removeEventListener("pause", onPause);
     };
   }, []);
 
@@ -180,13 +200,13 @@ export default function DemoSection() {
               <video
                 ref={videoRef}
                 className="w-full h-auto cursor-pointer block rounded-4xl mb-8"
-                preload="none"
-                poster="/images/demoplayerimage.png"
+                preload="metadata"
+                poster={ORIGINAL_POSTER}
                 playsInline
                 onClick={togglePlay}
                 style={{ colorScheme: "dark" }}
               >
-                <source src="/images/dubiovideos.mp4" type="video/mp4" />
+                <source src={ORIGINAL_VIDEO_SRC} type="video/mp4" />
               </video>
 
               {/* Control bar — floating pill */}
